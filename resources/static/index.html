@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테스트</title>
+</head>
+<body>
+<div></div>
+</body>
+</html>
+<script src ="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+var list = null;
+
+$(document).ready(function(){
+	$.ajax({
+		url:'../hello/list',
+		type:'get',
+		dataType:'json',
+		success:function(data){
+			let strUl = '<ul>';
+			for(let i = 0; i < data.length; i++){
+				strUl += '<li>' + JSON.stringify(data[i]) + '</li>';
+			}
+			list = data;
+			console.log(list);
+			strUl += '</ul>';
+			$('div').html(strUl);
+			$('li').click(function(){
+				var idx = 1;
+				var param = list[idx];
+				console.log(param);
+				
+				//let data = $(this).text();
+				//console.log(data);
+				$.ajax({
+					url:'../hello/list2',
+					type:'get',
+					data: param,
+					dataType:'json',
+					success:function(data){
+						console.log('resp:', data);
+						console.log('성공');
+					},
+					error:function(jqXHR){
+						console.error(jqXHR);
+						console.log('실패');
+					}
+				})
+			});
+		},
+		error:function(jqXHR){
+			console.log('실패');
+		}
+	})
+})
+</script>
