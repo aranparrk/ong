@@ -28,7 +28,7 @@ $(document).ready(function(){
 			strUl += '</ul>';
 			$('div').html(strUl);
 			$('li').click(function(){
-				var idx = 1;
+				var idx = $(this).index();
 				var param = list[idx];
 				console.log(param);
 				

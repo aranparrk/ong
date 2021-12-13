@@ -65,8 +65,13 @@ public class MyController {
 	@RequestMapping("/list2")
 	@ResponseBody
 	public MyVo jsonClick(MyVo json) {
-		System.out.println(json.getContent());
-		//System.out.println(json);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsonStr = mapper.writeValueAsString(json);
+			System.out.println(jsonStr);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		return json;
 	}
 	
